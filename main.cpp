@@ -6,6 +6,7 @@ int main(){
     while(!WindowShouldClose()){
         BeginDrawing();
         ClearBackground(WHITE);
+        DrawRectangle(10,10,1580,980,BLACK);
         EndDrawing();
     }
     CloseWindow();
