@@ -38,7 +38,7 @@ int main(){
         if(circle_y>=970.f){cir_vel_y*=-1.f;}
 
         if(CheckCollisionCircleRec(Vector2{circle_x,circle_y},circle_rad,
-                    Rectangle{player.posx,player.posy,player.width,player.height})){cir_vel_x*=-1.f;}
+        Rectangle{player.posx,player.posy,player.width,player.height})){cir_vel_x*=-1.f;}
 
         circle_x += cir_vel_x*dt;
         circle_y += cir_vel_y*dt;
