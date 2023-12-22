@@ -13,13 +13,35 @@ int main(){
     InitWindow(width,height,"PONG");
     rect player{1550,350,15,300};
     rect ai{35,350,15,300};
+    float velocity = 700.f;
+    
+    float circle_x = 800.f;
+    float circle_y = 500.f;
+    float circle_rad = 20.f;
+    float cir_vel_x = 500.f;
+    float cir_vel_y = 500.f;
+    
 
+    SetTargetFPS(60);
     while(!WindowShouldClose()){
         BeginDrawing();
         ClearBackground(WHITE);
+        float dt = GetFrameTime();
         DrawRectangle(10,10,1580,980,BLACK);
         DrawLine(800,10,800,990,WHITE);
-        DrawCircle(800,500,20.f,WHITE);
+        DrawCircle(circle_x,circle_y,circle_rad,WHITE);
+
+        if(IsKeyDown(KEY_DOWN) and player.posy<=675){player.posy+=velocity*dt;}
+        if(IsKeyDown(KEY_UP) and player.posy>=25){player.posy-=velocity*dt;}
+        
+        if(circle_y<=30.f){cir_vel_y*=-1.f;}
+        if(circle_y>=970.f){cir_vel_y*=-1.f;}
+
+        if(CheckCollisionCircleRec(Vector2{circle_x,circle_y},circle_rad,
+                    Rectangle{player.posx,player.posy,player.width,player.height})){cir_vel_x*=-1.f;}
+
+        circle_x += cir_vel_x*dt;
+        circle_y += cir_vel_y*dt;
         DrawRectangle(player.posx,player.posy,player.width,player.height,WHITE);
         DrawRectangle(ai.posx,ai.posy,ai.width,ai.height,WHITE);
         EndDrawing();
