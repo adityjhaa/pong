@@ -31,14 +31,26 @@ int main(){
         DrawLine(800,10,800,990,WHITE);
         DrawCircle(circle_x,circle_y,circle_rad,WHITE);
 
-        if(IsKeyDown(KEY_DOWN) and player.posy<=675){player.posy+=velocity*dt;}
-        if(IsKeyDown(KEY_UP) and player.posy>=25){player.posy-=velocity*dt;}
+        float player_vel{};
+        if(IsKeyDown(KEY_DOWN) and player.posy<=675){
+            player.posy+=velocity*dt;
+            player_vel=velocity;
+        }
+        if(IsKeyDown(KEY_UP) and player.posy>=25){
+            player.posy-=velocity*dt;
+            player_vel=-velocity;    
+        }
         
         if(circle_y<=30.f){cir_vel_y*=-1.f;}
         if(circle_y>=970.f){cir_vel_y*=-1.f;}
 
         if(CheckCollisionCircleRec(Vector2{circle_x,circle_y},circle_rad,
-        Rectangle{player.posx,player.posy,player.width,player.height})){cir_vel_x*=-1.f;}
+        Rectangle{player.posx,player.posy,player.width,player.height})){
+            cir_vel_x*=-1.f;
+            cir_vel_y+=player_vel;
+        }
+        if(CheckCollisionCircleRec(Vector2{circle_x,circle_y},circle_rad,
+        Rectangle{ai.posx,ai.posy,ai.width,ai.height})){cir_vel_x*=-1.f;}
 
         circle_x += cir_vel_x*dt;
         circle_y += cir_vel_y*dt;
