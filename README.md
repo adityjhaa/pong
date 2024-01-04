@@ -1,5 +1,4 @@
 # PONG
-
 {incomplete}
 
 This game is created using the Raylib Framework
